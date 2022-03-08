@@ -7,7 +7,7 @@ from PIL import Image
 from typing import List
 
 
-root_folder = 'pdf_tempo/'
+root_folder = 'pdf_temp/'
 
 pytesseract.pytesseract.tesseract_cmd='.venv/bin/pytesseract'
 
