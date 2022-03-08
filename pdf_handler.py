@@ -9,7 +9,7 @@ from typing import List
 
 root_folder = 'pdf_temp/'
 
-pytesseract.pytesseract.tesseract_cmd='.venv/bin/pytesseract'
+#pytesseract.pytesseract.tesseract_cmd='.venv/bin/pytesseract'
 
 def convert(files: List):
     if os.path.exists(root_folder):
@@ -23,10 +23,16 @@ def convert(files: List):
         for p, page in enumerate(pages):
             pagename = f'{fullpath}/page{p}.png'
             page.save(pagename, 'PNG')
-    
+
+    for paths, dirs, ff in os.walk(root_folder):
+        for page in ff:
+            fullpath = f'{paths}/{page.split(".")[0]}.txt'
+            fw = open(fullpath, 'w')
+            fw.write(pytesseract.image_to_string(Image.open(paths+'/'+page)))
+            fw.close()
 
 files = []
-files.append(os.getcwd()+'/teste0.pdf')
-files.append(os.getcwd()+'/teste1.pdf')
+files.append(os.getcwd()+'temp/teste0.pdf')
+files.append(os.getcwd()+'temp/teste1.pdf')
 
 convert(files)
